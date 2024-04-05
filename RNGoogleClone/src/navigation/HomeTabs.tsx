@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -5,7 +6,9 @@ import HomeScreen from '../screens/HomeScreens/HomeScreen';
 import TabsScreen from '../screens/HomeScreens/TabsScreen';
 import NotificationsScreen from '../screens/HomeScreens/NotificationsScreen';
 import {Colors} from '../constants/Colors';
-import NavigationIcon from '../../components/UI/NavigationIcon';
+import NavigationIcon from '../../components/HomeScreen/NavigationIcon';
+import HeaderWrapper from '../../components/HomeScreen/HeaderWrapper';
+import {Text} from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,11 +16,6 @@ const HomeTabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        headerStyle: {
-          backgroundColor: Colors.background600,
-          borderBottomWidth: 0,
-          borderBottomColor: Colors.background600,
-        },
         tabBarStyle: {
           backgroundColor: Colors.background500,
           borderTopWidth: 0,
@@ -29,6 +27,14 @@ const HomeTabs = () => {
         name="Home"
         component={HomeScreen}
         options={{
+          title: 'Home',
+          header: ({options}) => {
+            return (
+              <HeaderWrapper>
+                <Text style={{color: 'white'}}>{options.title}</Text>
+              </HeaderWrapper>
+            );
+          },
           tabBarIcon: ({focused, color}) => (
             <NavigationIcon
               focused={focused}
@@ -43,6 +49,14 @@ const HomeTabs = () => {
         name="Tabs"
         component={TabsScreen}
         options={{
+          title: 'Tabs',
+          header: ({options}) => {
+            return (
+              <HeaderWrapper>
+                <Text style={{color: 'white'}}>{options.title}</Text>
+              </HeaderWrapper>
+            );
+          },
           tabBarIcon: ({focused, color}) => (
             <NavigationIcon
               focused={focused}
@@ -57,6 +71,14 @@ const HomeTabs = () => {
         name="Notifications"
         component={NotificationsScreen}
         options={{
+          title: 'Notifications',
+          header: ({options}) => {
+            return (
+              <HeaderWrapper>
+                <Text style={{color: 'white'}}>{options.title}</Text>
+              </HeaderWrapper>
+            );
+          },
           tabBarIcon: ({focused, color}) => (
             <NavigationIcon
               focused={focused}
@@ -77,5 +99,8 @@ export default HomeTabs;
 //   icon: {
 //     width: 20,
 //     height: 20,
+//   },
+//   text: {
+//     color: 'white',
 //   },
 // });
