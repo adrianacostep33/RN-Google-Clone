@@ -22,22 +22,17 @@ function SearchTabs() {
         tabBarGap: 0,
         tabBarItemStyle: {
           width: 60,
-          padding: 0,
-          margin: 0,
+          paddingHorizontal: 0,
         },
         tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.text500,
 
         tabBarStyle: {
           backgroundColor: Colors.background600,
-          margin: 0,
-          padding: 0,
           width: screenWidth,
         },
         tabBarLabelStyle: {
           textTransform: 'none',
-          padding: 0,
-          margin: 0,
         },
         tabBarIndicatorStyle: {
           backgroundColor: 'transparent',

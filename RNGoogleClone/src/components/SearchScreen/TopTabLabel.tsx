@@ -26,9 +26,6 @@ const styles = StyleSheet.create({
   focusedContainer: {
     backgroundColor: Colors.primary100,
     borderRadius: 10,
-    padding: 0,
-    margin: 0,
-    height: 20,
   },
   label: {
     color: Colors.text500,
