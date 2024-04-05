@@ -1,5 +1,7 @@
 export const Colors = {
-  primaryBackground: '#171717',
-  secondaryBackground: '#303134',
-  text: 'white',
+  background600: '#171717',
+  background500: '#303134',
+  text500: 'white',
+  text600: '#9aa0a6',
+  primary: '#8ab4f8',
 };

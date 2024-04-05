@@ -12,7 +12,7 @@ const MainNavigation = () => {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: Colors.primaryBackground,
+          backgroundColor: Colors.background600,
         },
       }}>
       <Stack.Screen
