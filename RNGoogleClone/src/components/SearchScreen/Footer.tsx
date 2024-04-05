@@ -1,54 +1,61 @@
 import React from 'react';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {Colors} from '../../constants/Colors';
 import IconButton from './IconButton';
+import {useNavigation} from '@react-navigation/native';
+
+// interface FooterProps {
+//   goBack: () => void;
+// }
 
 const Footer = () => {
-  function onPressButton() {
-    console.log('press');
+  const navigation = useNavigation();
+
+  function handlePressedBack() {
+    navigation.goBack();
   }
+
+  function handlePressedHome() {
+    navigation.navigate('HomeScreen' as never);
+  }
+
+  function handlePressedNotifications() {
+    navigation.navigate('Notifications' as never);
+  }
+
   return (
     <View style={[styles.container]}>
-      <TouchableOpacity onPress={onPressButton} style={styles.button}>
-        <IconButton
-          size={20}
-          source={require('../../assets/icons/left-arrow.png')}
-        />
-      </TouchableOpacity>
+      <IconButton
+        size={20}
+        source={require('../../assets/icons/left-arrow.png')}
+        onPress={handlePressedBack}
+      />
 
-      <TouchableOpacity onPress={onPressButton} style={styles.button}>
-        <IconButton
-          size={20}
-          source={require('../../assets/icons/right-arrow.png')}
-        />
-      </TouchableOpacity>
+      <IconButton
+        size={20}
+        source={require('../../assets/icons/right-arrow.png')}
+      />
 
-      <TouchableOpacity onPress={onPressButton} style={styles.button}>
-        <IconButton
-          size={20}
-          source={require('../../assets/icons/upload.png')}
-        />
-      </TouchableOpacity>
+      <IconButton size={20} source={require('../../assets/icons/upload.png')} />
 
-      <TouchableOpacity onPress={onPressButton} style={styles.button}>
-        <IconButton
-          size={22}
-          source={require('../../assets/icons/home-outlined.png')}
-        />
-      </TouchableOpacity>
+      <IconButton
+        size={22}
+        source={require('../../assets/icons/home-outlined.png')}
+        onPress={handlePressedHome}
+      />
 
-      <TouchableOpacity onPress={onPressButton} style={styles.button}>
-        <IconButton
-          size={26}
-          source={require('../../assets/icons/notifications.png')}
-        />
-      </TouchableOpacity>
+      <IconButton
+        size={26}
+        source={require('../../assets/icons/notifications.png')}
+        onPress={handlePressedNotifications}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
     backgroundColor: Colors.background500,
     position: 'absolute',
     bottom: 0,
@@ -57,11 +64,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     justifyContent: 'space-around',
     alignItems: 'center',
-  },
-  button: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '20%',
   },
 });
 
