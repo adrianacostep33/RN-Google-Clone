@@ -6,12 +6,18 @@ import VideosScreen from '../screens/SearchScreens/VideosScreen';
 import NewsScreen from '../screens/SearchScreens/NewsScreen';
 import BooksScreen from '../screens/SearchScreens/BooksScreen';
 import FinanceScreen from '../screens/SearchScreens/FinanceScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const Tab = createMaterialTopTabNavigator();
 
 function SearchTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: Colors.secondaryBackground,
+        },
+      }}>
       <Tab.Screen name="All" component={ResultsScreen} />
       <Tab.Screen name="Images" component={ImagesScreen} />
       <Tab.Screen name="Videos" component={VideosScreen} />

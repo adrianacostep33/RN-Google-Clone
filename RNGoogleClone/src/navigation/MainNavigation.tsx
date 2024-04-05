@@ -3,14 +3,26 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import SearchTabs from './SearchTabs';
 import HomeTabs from './HomeTabs';
+import {Colors} from '../constants/Colors';
 
 const Stack = createNativeStackNavigator();
 
 const MainNavigation = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeTabs} />
-      <Stack.Screen name="Search" component={SearchTabs} />
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: Colors.primaryBackground,
+        },
+      }}>
+      <Stack.Screen
+        name="HomeScreen"
+        component={HomeTabs}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen name="SearchScreen" component={SearchTabs} />
     </Stack.Navigator>
   );
 };

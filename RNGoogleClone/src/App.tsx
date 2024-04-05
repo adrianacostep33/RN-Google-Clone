@@ -6,12 +6,22 @@
  */
 
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import MainNavigation from './navigation/MainNavigation';
+import {Colors} from './constants/Colors';
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: Colors.primaryBackground,
+    text: 'white',
+  },
+};
 
 function App(): React.JSX.Element {
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <MainNavigation />
     </NavigationContainer>
   );
