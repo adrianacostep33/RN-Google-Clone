@@ -1,6 +1,6 @@
 import {SafeAreaView, StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Colors} from '../../src/constants/Colors';
+import {Colors} from '../../constants/Colors';
 
 interface HeaderWrapperProps {
   children?: React.ReactNode;

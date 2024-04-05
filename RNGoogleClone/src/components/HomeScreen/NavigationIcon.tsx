@@ -1,9 +1,9 @@
 import {View, Image, StyleSheet} from 'react-native';
 import React from 'react';
-import {Colors} from '../../src/constants/Colors';
+import {Colors} from '../../constants/Colors';
 
 interface IconProps {
-  focused: boolean;
+  focused?: boolean;
   source: number;
   color: string;
   size: number;

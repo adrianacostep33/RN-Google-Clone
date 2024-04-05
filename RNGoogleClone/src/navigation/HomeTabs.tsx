@@ -6,8 +6,8 @@ import HomeScreen from '../screens/HomeScreens/HomeScreen';
 import TabsScreen from '../screens/HomeScreens/TabsScreen';
 import NotificationsScreen from '../screens/HomeScreens/NotificationsScreen';
 import {Colors} from '../constants/Colors';
-import NavigationIcon from '../../components/HomeScreen/NavigationIcon';
-import HeaderWrapper from '../../components/HomeScreen/HeaderWrapper';
+import NavigationIcon from '../components/HomeScreen/NavigationIcon';
+import HeaderWrapper from '../components/HomeScreen/HeaderWrapper';
 import {Text} from 'react-native';
 
 const Tab = createBottomTabNavigator();
