@@ -18,6 +18,7 @@ function SearchTabs() {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
+        tabBarTransitionPreset: 'slide',
         tabBarScrollEnabled: true,
         tabBarGap: 0,
         tabBarItemStyle: {
@@ -26,10 +27,15 @@ function SearchTabs() {
         },
         tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: Colors.text500,
-
         tabBarStyle: {
           backgroundColor: Colors.background600,
           width: screenWidth,
+          borderBlockColor: Colors.border,
+          borderBottomWidth: 0.5,
+          shadowColor: 'black',
+          shadowOpacity: 0.9,
+          shadowOffset: {width: 1, height: 2},
+          shadowRadius: 4,
         },
         tabBarLabelStyle: {
           textTransform: 'none',

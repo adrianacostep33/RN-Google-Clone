@@ -22,7 +22,14 @@ const MainNavigation = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="SearchScreen" component={SearchTabs} />
+      <Stack.Screen
+        name="SearchScreen"
+        component={SearchTabs}
+        options={{
+          headerBackVisible: false,
+          headerShadowVisible: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };
