@@ -6,25 +6,25 @@
  */
 
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
+import MainNavigation from './navigation/MainNavigation';
+import {Colors} from './constants/Colors';
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: Colors.background600,
+    text: 'white',
+  },
+};
 
 function App(): React.JSX.Element {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Acolo</Text>
-    </View>
+    <NavigationContainer theme={MyTheme}>
+      <MainNavigation />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    color: 'black',
-  },
-});
 
 export default App;
