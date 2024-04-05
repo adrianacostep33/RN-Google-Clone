@@ -1,4 +1,4 @@
-import {Pressable, StyleSheet} from 'react-native';
+import {Pressable} from 'react-native';
 import React from 'react';
 import NavigationIcon from '../HomeScreen/NavigationIcon';
 import {Colors} from '../../constants/Colors';
@@ -18,5 +18,3 @@ const IconButton = ({source, size, onPress}: IconButtonProps) => {
 };
 
 export default IconButton;
-
-const styles = StyleSheet.create({});
