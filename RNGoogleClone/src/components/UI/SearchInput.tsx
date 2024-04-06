@@ -1,12 +1,20 @@
-import {Image, StyleSheet, TextInput, View} from 'react-native';
+import {Image, StyleSheet, TextInput, View, ViewStyle} from 'react-native';
 import React from 'react';
 import {Colors} from '../../constants/Colors';
 import {useSearchContext} from '../../contexts/SearchContext';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import Avatar from './Avatar';
 
-const Input = () => {
+interface InputProps {
+  inputStyle?: ViewStyle;
+}
+
+const SearchInput = ({inputStyle}: InputProps) => {
   const {inputValue, setInputValue} = useSearchContext();
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const isHomeScreen = route.name === 'Home';
 
   function handleSubmit() {
     if (!inputValue) return;
@@ -15,8 +23,14 @@ const Input = () => {
 
   return (
     <View style={styles.container}>
+      {!isHomeScreen && (
+        <Image
+          style={styles.logo}
+          source={require('../../assets/icons/google-logo-color.png')}
+        />
+      )}
       <TextInput
-        style={styles.input}
+        style={[styles.input, inputStyle]}
         placeholder="Search"
         placeholderTextColor={Colors.gray500}
         value={inputValue}
@@ -28,16 +42,20 @@ const Input = () => {
         style={styles.microphone}
         source={require('../../assets/icons/microphone.png')}
       />
-      <Image
-        tintColor={Colors.text500}
-        style={styles.camera}
-        source={require('../../assets/icons/camera.png')}
-      />
+      {isHomeScreen ? (
+        <Image
+          tintColor={Colors.text500}
+          style={styles.camera}
+          source={require('../../assets/icons/camera.png')}
+        />
+      ) : (
+        <Avatar style={styles.avatar} />
+      )}
     </View>
   );
 };
 
-export default Input;
+export default SearchInput;
 
 const styles = StyleSheet.create({
   container: {
@@ -53,7 +71,6 @@ const styles = StyleSheet.create({
     height: 60,
     borderRadius: 30,
     fontSize: 24,
-    paddingHorizontal: 25,
     color: Colors.gray500,
   },
   microphone: {
@@ -67,5 +84,17 @@ const styles = StyleSheet.create({
     height: 24,
     position: 'absolute',
     right: 40,
+  },
+  logo: {
+    width: 28,
+    height: 28,
+    position: 'absolute',
+    left: 30,
+    zIndex: 1,
+  },
+  avatar: {
+    position: 'absolute',
+    right: 30,
+    zIndex: 1,
   },
 });

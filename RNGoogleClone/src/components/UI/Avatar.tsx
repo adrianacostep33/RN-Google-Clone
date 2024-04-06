@@ -1,14 +1,21 @@
 import React from 'react';
-import {View, Image, StyleSheet, ImageSourcePropType} from 'react-native';
+import {
+  View,
+  Image,
+  StyleSheet,
+  ImageSourcePropType,
+  ViewStyle,
+} from 'react-native';
 
 interface AvatarProps {
+  style?: ViewStyle;
   source?: ImageSourcePropType;
 }
 
-const Avatar: React.FC<AvatarProps> = ({source}) => {
+const Avatar: React.FC<AvatarProps> = ({source, style}) => {
   const defaultSource: ImageSourcePropType = require('../../assets/icons/avatar.png');
   return (
-    <View style={styles.rootContainer}>
+    <View style={[styles.rootContainer, style]}>
       <View style={styles.container}>
         <Image source={source || defaultSource} style={styles.image} />
       </View>
