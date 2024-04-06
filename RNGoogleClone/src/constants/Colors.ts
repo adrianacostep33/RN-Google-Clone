@@ -6,4 +6,6 @@ export const Colors = {
   border: 'rgba(154, 160, 166, 0.22)',
   primary: '#8ab4f8',
   primary100: 'rgba(98, 149, 232, 0.5)',
+  gray500: '#5f6368',
+  gray600: '#303134',
 };
