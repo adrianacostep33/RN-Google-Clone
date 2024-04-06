@@ -4,10 +4,6 @@ import {Colors} from '../../constants/Colors';
 import IconButton from './IconButton';
 import {useNavigation} from '@react-navigation/native';
 
-// interface FooterProps {
-//   goBack: () => void;
-// }
-
 const Footer = () => {
   const navigation = useNavigation();
 

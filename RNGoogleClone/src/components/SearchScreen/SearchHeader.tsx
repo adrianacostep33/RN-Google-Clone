@@ -1,13 +1,13 @@
 import {SafeAreaView, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Colors} from '../../constants/Colors';
-import Input from '../UI/Input';
+import SearchInput from '../UI/SearchInput';
 
 const SearchHeader = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
-        <Input />
+        <SearchInput inputStyle={styles.input} />
       </View>
     </SafeAreaView>
   );
@@ -21,5 +21,11 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     marginTop: '5%',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  input: {
+    height: 45,
+    paddingHorizontal: 50,
   },
 });
