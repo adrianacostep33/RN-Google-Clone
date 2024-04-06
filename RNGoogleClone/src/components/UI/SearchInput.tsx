@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
     width: '90%',
     height: 60,
     borderRadius: 30,
-    fontSize: 24,
     color: Colors.gray500,
   },
   microphone: {

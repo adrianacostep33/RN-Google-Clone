@@ -36,5 +36,6 @@ const styles = StyleSheet.create({
   input: {
     height: 60,
     paddingHorizontal: 25,
+    fontSize: 24,
   },
 });

@@ -27,5 +27,6 @@ const styles = StyleSheet.create({
   input: {
     height: 45,
     paddingHorizontal: 50,
+    fontSize: 16,
   },
 });
