@@ -8,11 +8,8 @@ interface HeaderWrapperProps {
 
 const HeaderWrapper = ({children}: HeaderWrapperProps) => {
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-        {/* {title && <Text style={styles.title}>{title}</Text>} */}
-        {children}
-      </View>
+    <SafeAreaView style={styles.rootContainer}>
+      <View style={styles.container}>{children}</View>
     </SafeAreaView>
   );
 };
@@ -20,9 +17,12 @@ const HeaderWrapper = ({children}: HeaderWrapperProps) => {
 export default HeaderWrapper;
 
 const styles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+  },
   container: {
-    backgroundColor: Colors.background600,
-    height: 200,
+    height: 50,
+    paddingHorizontal: 10,
   },
   title: {
     color: Colors.text500,

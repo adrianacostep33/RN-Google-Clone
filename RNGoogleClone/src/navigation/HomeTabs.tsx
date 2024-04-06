@@ -9,6 +9,7 @@ import {Colors} from '../constants/Colors';
 import NavigationIcon from '../components/HomeScreen/NavigationIcon';
 import HeaderWrapper from '../components/HomeScreen/HeaderWrapper';
 import {Text} from 'react-native';
+import Avatar from '../components/HomeScreen/Avatar';
 
 const Tab = createBottomTabNavigator();
 
@@ -28,10 +29,10 @@ const HomeTabs = () => {
         component={HomeScreen}
         options={{
           title: 'Home',
-          header: ({options}) => {
+          header: () => {
             return (
               <HeaderWrapper>
-                <Text style={{color: 'white'}}>{options.title}</Text>
+                <Avatar />
               </HeaderWrapper>
             );
           },
