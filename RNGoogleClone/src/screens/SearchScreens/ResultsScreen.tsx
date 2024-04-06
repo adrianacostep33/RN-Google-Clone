@@ -4,6 +4,7 @@ import Footer from '../../components/SearchScreen/Footer';
 import {Result} from '../../constants/Interfaces';
 import {useSearchContext} from '../../contexts/SearchContext';
 import search from '../../../utils/http/search';
+import ResultsList from '../../components/SearchScreen/Results.tsx/ResultsList';
 
 const ResultsScreen = () => {
   const {inputValue} = useSearchContext();
@@ -23,7 +24,12 @@ const ResultsScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text>ResultsScreen</Text>
+      {loading ? (
+        <Text>Feching data... </Text>
+      ) : (
+        <ResultsList results={results} />
+      )}
+
       <Footer />
     </View>
   );
