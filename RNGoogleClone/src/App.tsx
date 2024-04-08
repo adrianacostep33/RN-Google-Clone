@@ -10,6 +10,7 @@ import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import MainNavigation from './navigation/MainNavigation';
 import {Colors} from './constants/Colors';
 import {SearchProvider} from './contexts/SearchContext';
+import {NextPagesProvider} from './contexts/NextPagesContext';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -23,9 +24,11 @@ const MyTheme = {
 function App(): React.JSX.Element {
   return (
     <NavigationContainer theme={MyTheme}>
-      <SearchProvider>
-        <MainNavigation />
-      </SearchProvider>
+      <NextPagesProvider>
+        <SearchProvider>
+          <MainNavigation />
+        </SearchProvider>
+      </NextPagesProvider>
     </NavigationContainer>
   );
 }
