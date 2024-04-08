@@ -15,7 +15,7 @@ const ResultsScreen = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await search(inputValue);
+      const data = await search(inputValue.split(/\s+/));
       setLoading(false);
       setResults(data);
     };
@@ -37,5 +37,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 60,
   },
 });
