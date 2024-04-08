@@ -1,10 +1,11 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Footer from '../../components/SearchScreen/Footer';
 import {Result} from '../../constants/Interfaces';
 import {useSearchContext} from '../../contexts/SearchContext';
 import search from '../../../utils/http/search';
 import ResultsList from '../../components/SearchScreen/Results.tsx/ResultsList';
+import LoadingSpinner from '../../components/UI/LoadingSpinner';
 
 const ResultsScreen = () => {
   const {inputValue} = useSearchContext();
@@ -13,23 +14,17 @@ const ResultsScreen = () => {
   const [results, setResults] = useState<Result[]>([]);
 
   useEffect(() => {
-    setLoading(true);
     const fetchData = async () => {
       const data = await search(inputValue);
-      setResults(data);
       setLoading(false);
+      setResults(data);
     };
     fetchData();
   }, [inputValue]);
 
   return (
     <View style={styles.container}>
-      {loading ? (
-        <Text>Feching data... </Text>
-      ) : (
-        <ResultsList results={results} />
-      )}
-
+      {loading ? <LoadingSpinner /> : <ResultsList results={results} />}
       <Footer />
     </View>
   );

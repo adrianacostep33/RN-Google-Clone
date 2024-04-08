@@ -13,7 +13,6 @@ const Footer = () => {
   const navigation = useNavigation();
 
   function handlePressedBack() {
-    console.log('backkk', {name}, [...nextPages, name]);
     setNextPages(previous => [...previous, name]);
     navigation.goBack();
   }
@@ -27,7 +26,6 @@ const Footer = () => {
   }
 
   function handlePressedNext() {
-    console.log({nextPages});
     if (nextPages?.length === 0) return;
 
     const nextPage = nextPages[nextPages.length - 1];
