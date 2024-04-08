@@ -1,4 +1,4 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Linking, Pressable, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Colors} from '../../../constants/Colors';
 
@@ -19,24 +19,33 @@ const ResultItem = ({
   name,
   description,
 }: ResultItemProps) => {
-  return (
-    <View style={styles.rootContainer}>
-      <View style={styles.container}>
-        <View style={styles.mainContent}>
-          <View style={styles.imageContainer}>
-            <Image style={styles.image} source={{uri: image}} />
-          </View>
+  function handleResultPressed() {
+    if (!url) return;
+    Linking.openURL(url);
+  }
 
-          <View>
-            <Text style={[styles.textBase, styles.title]}>{title}</Text>
-            <Text style={[styles.textBase, styles.url]}>{url}</Text>
+  return (
+    <Pressable onPress={handleResultPressed}>
+      <View style={styles.rootContainer}>
+        <View style={styles.container}>
+          <View style={styles.mainContent}>
+            <View style={styles.imageContainer}>
+              <Image style={styles.image} source={{uri: image}} />
+            </View>
+
+            <View>
+              <Text style={[styles.textBase, styles.title]}>{title}</Text>
+              <Text style={[styles.textBase, styles.url]}>{url}</Text>
+            </View>
           </View>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={[styles.textBase, styles.description]}>
+            {description}
+          </Text>
+          {children}
         </View>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={[styles.textBase, styles.description]}>{description}</Text>
-        {children}
       </View>
-    </View>
+    </Pressable>
   );
 };
 

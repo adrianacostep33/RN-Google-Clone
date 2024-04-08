@@ -1,4 +1,12 @@
-import {Image, StyleSheet, Text, View, Dimensions} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Pressable,
+  Linking,
+} from 'react-native';
 import React from 'react';
 import {Colors} from '../../../constants/Colors';
 
@@ -11,31 +19,42 @@ interface ImageResultItemProps {
   description?: string;
 }
 
-const ImageResultItem = ({title, image, description}: ImageResultItemProps) => {
+const ImageResultItem = ({
+  title,
+  image,
+  description,
+  url,
+}: ImageResultItemProps) => {
+  function handleResultPressed() {
+    if (!url) return;
+    Linking.openURL(url);
+  }
   return (
-    <View style={styles.rootContainer}>
-      <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{uri: image}} />
-        </View>
-
-        <View>
-          <View style={styles.titleContainer}>
-            <View style={styles.logoContainer}>
-              <Image style={styles.logo} source={{uri: image}} />
-            </View>
-            <Text style={[styles.textBase, styles.title]}>{title}</Text>
+    <Pressable onPress={handleResultPressed}>
+      <View style={styles.rootContainer}>
+        <View style={styles.container}>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={{uri: image}} />
           </View>
 
-          <Text
-            style={[styles.textBase, styles.description]}
-            numberOfLines={1}
-            ellipsizeMode="tail">
-            {description}
-          </Text>
+          <View>
+            <View style={styles.titleContainer}>
+              <View style={styles.logoContainer}>
+                <Image style={styles.logo} source={{uri: image}} />
+              </View>
+              <Text style={[styles.textBase, styles.title]}>{title}</Text>
+            </View>
+
+            <Text
+              style={[styles.textBase, styles.description]}
+              numberOfLines={1}
+              ellipsizeMode="tail">
+              {description}
+            </Text>
+          </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

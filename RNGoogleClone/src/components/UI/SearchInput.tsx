@@ -1,4 +1,11 @@
-import {Image, StyleSheet, TextInput, View, ViewStyle} from 'react-native';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  TextInput,
+  View,
+  ViewStyle,
+} from 'react-native';
 import React from 'react';
 import {Colors} from '../../constants/Colors';
 import {useSearchContext} from '../../contexts/SearchContext';
@@ -21,13 +28,19 @@ const SearchInput = ({inputStyle}: InputProps) => {
     navigation.navigate('SearchScreen' as never);
   }
 
+  function handlePressedLogo() {
+    navigation.navigate('HomeScreen' as never);
+  }
+
   return (
     <View style={styles.container}>
       {!isHomeScreen && (
-        <Image
-          style={styles.logo}
-          source={require('../../assets/icons/google-logo-color.png')}
-        />
+        <Pressable onPress={handlePressedLogo} style={styles.logoContainer}>
+          <Image
+            style={styles.logo}
+            source={require('../../assets/icons/google-logo-color.png')}
+          />
+        </Pressable>
       )}
       <TextInput
         style={[styles.input, inputStyle]}
@@ -84,11 +97,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 40,
   },
+  logoContainer: {
+    zIndex: 2,
+    justifyContent: 'center',
+    position: 'absolute',
+    left: 30,
+  },
   logo: {
     width: 28,
     height: 28,
-    position: 'absolute',
-    left: 30,
     zIndex: 1,
   },
   avatar: {
