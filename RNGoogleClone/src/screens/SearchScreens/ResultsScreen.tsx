@@ -4,7 +4,7 @@ import Footer from '../../components/SearchScreen/Footer';
 import {Result} from '../../constants/Interfaces';
 import {useSearchContext} from '../../contexts/SearchContext';
 import search from '../../../utils/http/search';
-import ResultsList from '../../components/SearchScreen/Results.tsx/ResultsList';
+import ResultsList from '../../components/SearchScreen/Results/ResultsList';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 
 const ResultsScreen = () => {
