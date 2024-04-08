@@ -13,7 +13,7 @@ const MainNavigation = () => {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: Colors.background600,
+          backgroundColor: Colors.background800,
         },
       }}>
       <Stack.Screen
@@ -28,7 +28,7 @@ const MainNavigation = () => {
         component={SearchTabs}
         options={{
           headerStyle: {
-            backgroundColor: Colors.background600,
+            backgroundColor: Colors.background800,
           },
           headerBackVisible: false,
           headerShadowVisible: false,

@@ -1,5 +1,6 @@
 export const Colors = {
-  background600: '#171717',
+  background800: '#111111',
+  background600: '#191818',
   background500: '#303134',
   text500: '#ffffff',
   text600: '#9aa0a6',

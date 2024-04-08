@@ -1,4 +1,4 @@
-import {FlatList, ListRenderItemInfo, StyleSheet, Text, View} from 'react-native';
+import {FlatList, ListRenderItemInfo, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {Result} from '../../../constants/Interfaces';
 import ResultItem from './ResultItem';
@@ -28,5 +28,6 @@ export default ResultsList;
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
+    width: '100%',
   },
 });
