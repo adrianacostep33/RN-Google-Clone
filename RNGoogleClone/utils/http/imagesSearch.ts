@@ -12,31 +12,33 @@ const imagesSearch = async (searchValue: string[]) => {
   let counter = 0;
   for (const element of searchValue) {
     console.log({element});
+    try {
+      const querySnapshot = await firestore()
+        .collection('results')
+        .where('searchableDescription', 'array-contains', element.toLowerCase())
+        .where('image', '!=', '')
+        .get();
+      querySnapshot.forEach(documentSnapshot => {
+        const data = documentSnapshot.data();
+        counter++;
+        console.log('Render number:', {counter}, {data});
 
-    firestore()
-      .collection('results')
-      .where('searchableDescription', 'array-contains', element.toLowerCase())
-      .where('image', '!=', '')
-      .onSnapshot(querySnapshot => {
-        querySnapshot.forEach(documentSnapshot => {
-          const data = documentSnapshot.data();
-          counter++;
-          console.log('Render number:', {counter}, {data});
+        const newDocument = {
+          id: documentSnapshot.id,
+          url: data.url,
+          title: data.title,
+          name: data.name,
+          description: data.description,
+          image: data.image,
+        };
 
-          const newDocument = {
-            id: documentSnapshot.id,
-            url: data.url,
-            title: data.title,
-            name: data.name,
-            description: data.description,
-            image: data.image,
-          };
+        if (isDuplicate(newDocument, results)) return;
 
-          if (isDuplicate(newDocument, results)) return;
-
-          results.push(newDocument);
-        });
+        results.push(newDocument);
       });
+    } catch (error) {
+      console.error('Error fetching documents: ', error);
+    }
   }
   return results;
 };
