@@ -4,6 +4,7 @@ import Footer from '../../components/SearchScreen/Footer';
 import {Result} from '../../constants/Interfaces';
 import {useSearchContext} from '../../contexts/SearchContext';
 import imagesSearch from '../../../utils/http/imagesSearch';
+import ImageResultsList from '../../components/SearchScreen/Images/ImageResultList';
 
 const ImagesScreen = () => {
   const {inputValue} = useSearchContext();
@@ -13,8 +14,6 @@ const ImagesScreen = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('fetching ...');
-
       const data = await imagesSearch(inputValue.split(/\s+/));
       setLoading(false);
       setResults(data);
@@ -28,6 +27,7 @@ const ImagesScreen = () => {
   return (
     <View style={styles.container}>
       <Text>ImagesScreen</Text>
+      <ImageResultsList imageResults={results} />
       <Footer />
     </View>
   );
