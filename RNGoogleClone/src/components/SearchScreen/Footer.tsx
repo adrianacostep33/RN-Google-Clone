@@ -2,12 +2,18 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Colors} from '../../constants/Colors';
 import IconButton from './IconButton';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {useNextPagesContext} from '../../contexts/NextPagesContext';
 
 const Footer = () => {
+  const {nextPages, setNextPages} = useNextPagesContext();
+
+  const {name} = useRoute();
+
   const navigation = useNavigation();
 
   function handlePressedBack() {
+    setNextPages(previous => [...previous, name]);
     navigation.goBack();
   }
 
@@ -17,6 +23,15 @@ const Footer = () => {
 
   function handlePressedNotifications() {
     navigation.navigate('Notifications' as never);
+  }
+
+  function handlePressedNext() {
+    if (nextPages?.length === 0) return;
+
+    const nextPage = nextPages[nextPages.length - 1];
+    setNextPages(prev => prev.slice(0, prev.length - 1));
+
+    navigation.navigate(nextPage as never);
   }
 
   return (
@@ -30,6 +45,8 @@ const Footer = () => {
       <IconButton
         size={20}
         source={require('../../assets/icons/right-arrow.png')}
+        onPress={handlePressedNext}
+        disabled={nextPages.length === 0}
       />
 
       <IconButton size={20} source={require('../../assets/icons/upload.png')} />

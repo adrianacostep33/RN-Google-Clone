@@ -19,6 +19,7 @@ function SearchTabs() {
     <Tab.Navigator
       backBehavior="history"
       screenOptions={({route}) => ({
+        animationEnabled: false,
         tabBarTransitionPreset: 'slide',
         tabBarScrollEnabled: true,
         tabBarGap: 0,

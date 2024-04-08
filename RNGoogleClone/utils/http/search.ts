@@ -8,8 +8,6 @@ const isDuplicate = (newDocument: Result, documents: Result[]) => {
 };
 
 const search = async (searchValue: string) => {
-  console.log({searchValue});
-
   const results: Result[] = [];
   for (const element of searchValue) {
     firestore()
@@ -18,8 +16,6 @@ const search = async (searchValue: string) => {
       .onSnapshot(querySnapshot => {
         querySnapshot.forEach(documentSnapshot => {
           const data = documentSnapshot.data();
-
-          console.log({data});
 
           const newDocument = {
             id: documentSnapshot.id,
