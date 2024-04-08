@@ -1,8 +1,18 @@
 import {Image, StyleSheet, View} from 'react-native';
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Colors} from '../../constants/Colors';
 import SearchInput from '../../components/UI/SearchInput';
+import {useFocusEffect} from '@react-navigation/native';
+import {useSearchContext} from '../../contexts/SearchContext';
 const HomeScreen = () => {
+  const {setInputValue} = useSearchContext();
+
+  useFocusEffect(
+    useCallback(() => {
+      setInputValue('');
+    }, [setInputValue]),
+  );
+
   return (
     <View style={styles.container}>
       <Image
