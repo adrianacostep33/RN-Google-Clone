@@ -21,8 +21,6 @@ const ImagesScreen = () => {
     fetchData();
   }, [inputValue]);
 
-  console.log({loading});
-  console.log({results});
 
   return (
     <View style={styles.container}>

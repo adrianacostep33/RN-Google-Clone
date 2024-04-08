@@ -9,9 +9,7 @@ const isDuplicate = (newDocument: Result, documents: Result[]) => {
 
 const imagesSearch = async (searchValue: string[]) => {
   const results: Result[] = [];
-  let counter = 0;
   for (const element of searchValue) {
-    console.log({element});
     try {
       const querySnapshot = await firestore()
         .collection('results')
@@ -20,8 +18,6 @@ const imagesSearch = async (searchValue: string[]) => {
         .get();
       querySnapshot.forEach(documentSnapshot => {
         const data = documentSnapshot.data();
-        counter++;
-        console.log('Render number:', {counter}, {data});
 
         const newDocument = {
           id: documentSnapshot.id,
