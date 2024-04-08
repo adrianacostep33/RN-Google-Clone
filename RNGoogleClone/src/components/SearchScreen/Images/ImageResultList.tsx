@@ -18,6 +18,7 @@ const ImageResultsList = ({imageResults}: ResultsListProps) => {
         data={imageResults}
         keyExtractor={item => item.id}
         renderItem={renderResultItem}
+        numColumns={2}
       />
     </View>
   );
