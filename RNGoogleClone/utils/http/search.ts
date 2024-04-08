@@ -7,15 +7,20 @@ const isDuplicate = (newDocument: Result, documents: Result[]) => {
   });
 };
 
-const search = async (searchValue: string) => {
+const search = async (searchValue: string[]) => {
   const results: Result[] = [];
+  let counter = 0;
   for (const element of searchValue) {
+    console.log({element});
+
     firestore()
       .collection('results')
       .where('searchableDescription', 'array-contains', element.toLowerCase())
       .onSnapshot(querySnapshot => {
         querySnapshot.forEach(documentSnapshot => {
           const data = documentSnapshot.data();
+          counter++;
+          console.log('Render number:', {counter}, {data});
 
           const newDocument = {
             id: documentSnapshot.id,
