@@ -19,12 +19,12 @@ const HomeScreen = ({navigation}: any) => {
       header: () => {
         return (
           <HeaderWrapper>
-            <Avatar />
+            {userImage && <Avatar source={{uri: userImage}} />}
           </HeaderWrapper>
         );
       },
     });
-  }, [navigation]);
+  }, [navigation, userImage]);
 
   GoogleSignin.configure({
     webClientId:
@@ -59,11 +59,6 @@ const HomeScreen = ({navigation}: any) => {
       <View style={styles.buttonContainer}>
         <Button title="Google Sign-In" onPress={signInWIthGoogle} />
       </View>
-      {userImage && (
-        <View style={styles.imageContainer}>
-          <Image source={{uri: userImage}} style={styles.imageUser} />
-        </View>
-      )}
     </View>
   );
 };
