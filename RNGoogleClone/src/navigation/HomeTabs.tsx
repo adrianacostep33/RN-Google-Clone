@@ -9,7 +9,7 @@ import {Colors} from '../constants/Colors';
 import NavigationIcon from '../components/HomeScreen/NavigationIcon';
 import HeaderWrapper from '../components/HomeScreen/HeaderWrapper';
 import {Text} from 'react-native';
-import Avatar from '../components/UI/Avatar';
+// import Avatar from '../components/UI/Avatar';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,13 +29,13 @@ const HomeTabs = () => {
         component={HomeScreen}
         options={{
           title: 'Home',
-          header: () => {
-            return (
-              <HeaderWrapper>
-                <Avatar />
-              </HeaderWrapper>
-            );
-          },
+          // header: () => {
+          //   return (
+          //     <HeaderWrapper>
+          //       <Avatar />
+          //     </HeaderWrapper>
+          //   );
+          // },
           tabBarIcon: ({focused, color}) => (
             <NavigationIcon
               focused={focused}

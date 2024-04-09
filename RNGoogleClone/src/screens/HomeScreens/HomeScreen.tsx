@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import {Button, Image, StyleSheet, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {Colors} from '../../constants/Colors';
@@ -6,10 +7,24 @@ import {useFocusEffect} from '@react-navigation/native';
 import {useSearchContext} from '../../contexts/SearchContext';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
+import HeaderWrapper from '../../components/HomeScreen/HeaderWrapper';
+import Avatar from '../../components/UI/Avatar';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}: any) => {
   const {setInputValue} = useSearchContext();
   const [userImage, setUserImage] = useState<string>();
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      header: () => {
+        return (
+          <HeaderWrapper>
+            <Avatar />
+          </HeaderWrapper>
+        );
+      },
+    });
+  }, [navigation]);
 
   GoogleSignin.configure({
     webClientId:
