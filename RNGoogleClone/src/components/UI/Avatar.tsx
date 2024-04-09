@@ -29,10 +29,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   container: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     overflow: 'hidden',
-    borderRadius: 20,
+    borderRadius: 15,
   },
   image: {
     width: '100%',

@@ -1,19 +1,18 @@
 /* eslint-disable react/no-unstable-nested-components */
 import {Image, StyleSheet, View} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback} from 'react';
 import {Colors} from '../../constants/Colors';
 import SearchInput from '../../components/UI/SearchInput';
 import {useFocusEffect} from '@react-navigation/native';
 import {useSearchContext} from '../../contexts/SearchContext';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
 import HeaderWrapper from '../../components/HomeScreen/HeaderWrapper';
 import Avatar from '../../components/UI/Avatar';
 import Button from '../../components/UI/Button';
+import {useAuth} from '../../contexts/useAuth';
 
 const HomeScreen = ({navigation}: any) => {
   const {setInputValue} = useSearchContext();
-  const [userImage, setUserImage] = useState<string>();
+  const {userImage, signInWithGoogle} = useAuth();
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -24,37 +23,20 @@ const HomeScreen = ({navigation}: any) => {
               <Avatar source={{uri: userImage}} />
             ) : (
               <View style={styles.buttonContainer}>
-                <Button title="Sign In" onPress={signInWIthGoogle} />
+                <Button title="Sign In" onPress={signInWithGoogle} />
               </View>
             )}
           </HeaderWrapper>
         );
       },
     });
-  }, [navigation, userImage]);
-
-  GoogleSignin.configure({
-    webClientId:
-      '710446065353-mup4njohq428muahe7rc4gr3c821hs63.apps.googleusercontent.com',
-  });
+  }, [navigation, userImage, signInWithGoogle]);
 
   useFocusEffect(
     useCallback(() => {
       setInputValue('');
     }, [setInputValue]),
   );
-
-  async function signInWIthGoogle() {
-    await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
-    const {idToken} = await GoogleSignin.signIn();
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    const user_sign_in = auth().signInWithCredential(googleCredential);
-
-    user_sign_in.then(re => {
-      console.log(re.additionalUserInfo?.profile?.picture);
-      setUserImage(re.additionalUserInfo?.profile?.picture);
-    });
-  }
 
   return (
     <View style={styles.container}>

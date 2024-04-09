@@ -11,6 +11,7 @@ import {Colors} from '../../constants/Colors';
 import {useSearchContext} from '../../contexts/SearchContext';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Avatar from './Avatar';
+import {useAuth} from '../../contexts/useAuth';
 
 interface InputProps {
   inputStyle?: ViewStyle;
@@ -18,6 +19,7 @@ interface InputProps {
 
 const SearchInput = ({inputStyle}: InputProps) => {
   const {inputValue, setInputValue} = useSearchContext();
+  const {userImage} = useAuth();
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -55,15 +57,19 @@ const SearchInput = ({inputStyle}: InputProps) => {
         style={styles.microphone}
         source={require('../../assets/icons/microphone.png')}
       />
-      {isHomeScreen ? (
+      {isHomeScreen && (
         <Image
           tintColor={Colors.text500}
           style={styles.camera}
           source={require('../../assets/icons/camera.png')}
         />
-      ) : (
-        <Avatar style={styles.avatar} />
       )}
+      {!isHomeScreen &&
+        (userImage ? (
+          <Avatar style={styles.avatar} source={{uri: userImage}} />
+        ) : (
+          <Avatar style={styles.avatar} />
+        ))}
     </View>
   );
 };

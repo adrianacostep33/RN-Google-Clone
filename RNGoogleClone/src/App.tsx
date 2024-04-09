@@ -11,6 +11,7 @@ import MainNavigation from './navigation/MainNavigation';
 import {Colors} from './constants/Colors';
 import {SearchProvider} from './contexts/SearchContext';
 import {NextPagesProvider} from './contexts/NextPagesContext';
+import {AuthProvider} from './contexts/useAuth';
 
 const MyTheme = {
   ...DefaultTheme,
@@ -24,11 +25,13 @@ const MyTheme = {
 function App(): React.JSX.Element {
   return (
     <NavigationContainer theme={MyTheme}>
-      <NextPagesProvider>
-        <SearchProvider>
-          <MainNavigation />
-        </SearchProvider>
-      </NextPagesProvider>
+      <AuthProvider>
+        <NextPagesProvider>
+          <SearchProvider>
+            <MainNavigation />
+          </SearchProvider>
+        </NextPagesProvider>
+      </AuthProvider>
     </NavigationContainer>
   );
 }
