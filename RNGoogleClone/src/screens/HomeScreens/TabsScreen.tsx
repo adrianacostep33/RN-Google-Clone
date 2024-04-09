@@ -10,5 +10,3 @@ const TabsScreen = () => {
 };
 
 export default TabsScreen;
-
-// const styles = StyleSheet.create({});

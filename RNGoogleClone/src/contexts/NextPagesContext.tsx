@@ -15,7 +15,6 @@ const NextPagesContext = createContext<INextPagesContext | undefined>(
   undefined,
 );
 
-// Custom hook to access the NextPagesContext
 export const useNextPagesContext = () => {
   const context = useContext(NextPagesContext);
   if (!context) {
@@ -24,7 +23,6 @@ export const useNextPagesContext = () => {
   return context;
 };
 
-// Provider component to wrap your app and provide access to the nextPages state
 export const NextPagesProvider = ({
   children,
 }: {

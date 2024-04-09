@@ -95,13 +95,3 @@ const HomeTabs = () => {
 };
 
 export default HomeTabs;
-
-// const styles = StyleSheet.create({
-//   icon: {
-//     width: 20,
-//     height: 20,
-//   },
-//   text: {
-//     color: 'white',
-//   },
-// });

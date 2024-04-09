@@ -1,33 +1,35 @@
 import {FlatList, ListRenderItemInfo, StyleSheet, View} from 'react-native';
 import React from 'react';
-import {Result} from '../../../constants/Interfaces';
-import NewsResultItem from './NewsResultItem';
+import {Result} from '../../constants/Interfaces';
 
 interface ResultsListProps {
   results: Result[];
+  renderResultItem: (itemData: ListRenderItemInfo<Result>) => JSX.Element;
+  nrColumns?: number;
 }
 
-const NewsResultsList = ({results}: ResultsListProps) => {
-  function renderResultItem(itemData: ListRenderItemInfo<Result>) {
-    return <NewsResultItem {...itemData.item} />;
-  }
-
+const ResultsList = ({
+  results,
+  renderResultItem,
+  nrColumns = 1,
+}: ResultsListProps) => {
   return (
     <View style={styles.rootContainer}>
       <FlatList
         data={results}
         keyExtractor={item => item.id}
         renderItem={renderResultItem}
+        numColumns={nrColumns}
       />
     </View>
   );
 };
 
-export default NewsResultsList;
+export default ResultsList;
 
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    // width: '100%',
+    width: '100%',
   },
 });
