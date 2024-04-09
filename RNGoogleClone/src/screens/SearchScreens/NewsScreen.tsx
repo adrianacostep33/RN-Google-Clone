@@ -5,10 +5,10 @@ import {useSearchContext} from '../../contexts/SearchContext';
 import {Result} from '../../constants/Interfaces';
 import NewsResultsList from '../../components/SearchScreen/News/NewsResultList';
 import search from '../../utils/http/search';
+import LoadingSpinner from '../../components/UI/LoadingSpinner';
 
 const NewsScreen = () => {
   const {inputValue} = useSearchContext();
-
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState<Result[]>([]);
 
@@ -25,7 +25,7 @@ const NewsScreen = () => {
   return (
     <View style={styles.container}>
       <Text>NewsScreen</Text>
-      <NewsResultsList results={results} />
+      {loading ? <LoadingSpinner /> : <NewsResultsList results={results} />}
       <Footer />
     </View>
   );

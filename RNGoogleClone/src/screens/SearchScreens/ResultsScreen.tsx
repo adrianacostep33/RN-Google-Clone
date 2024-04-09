@@ -9,13 +9,13 @@ import LoadingSpinner from '../../components/UI/LoadingSpinner';
 
 const ResultsScreen = () => {
   const {inputValue} = useSearchContext();
-
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [results, setResults] = useState<Result[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await search('default', inputValue.split(/\s+/));
+
       setLoading(false);
       setResults(data);
     };
