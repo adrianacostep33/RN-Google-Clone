@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import {Button, Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {Colors} from '../../constants/Colors';
 import SearchInput from '../../components/UI/SearchInput';
@@ -9,6 +9,7 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import HeaderWrapper from '../../components/HomeScreen/HeaderWrapper';
 import Avatar from '../../components/UI/Avatar';
+import Button from '../../components/UI/Button';
 
 const HomeScreen = ({navigation}: any) => {
   const {setInputValue} = useSearchContext();
@@ -19,7 +20,13 @@ const HomeScreen = ({navigation}: any) => {
       header: () => {
         return (
           <HeaderWrapper>
-            {userImage && <Avatar source={{uri: userImage}} />}
+            {userImage ? (
+              <Avatar source={{uri: userImage}} />
+            ) : (
+              <View style={styles.buttonContainer}>
+                <Button title="Sign In" onPress={signInWIthGoogle} />
+              </View>
+            )}
           </HeaderWrapper>
         );
       },
@@ -56,9 +63,6 @@ const HomeScreen = ({navigation}: any) => {
         source={require('../../assets/images/google-logo.png')}
       />
       <SearchInput inputStyle={styles.input} />
-      <View style={styles.buttonContainer}>
-        <Button title="Google Sign-In" onPress={signInWIthGoogle} />
-      </View>
     </View>
   );
 };
@@ -88,11 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   buttonContainer: {
-    width: 40,
-    height: 40,
-  },
-  button: {
-    color: Colors.text500,
+    alignItems: 'flex-end',
   },
   imageContainer: {
     width: 30,
