@@ -1,5 +1,5 @@
-import {ListRenderItemInfo, StyleSheet, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
+import {ListRenderItemInfo, StyleSheet, View} from 'react-native';
 import Footer from '../../components/SearchScreen/Footer';
 import {Result} from '../../constants/Interfaces';
 import {useSearchContext} from '../../contexts/SearchContext';
