@@ -4,7 +4,6 @@ import {Colors} from '../../constants/Colors';
 import SearchInput from '../../components/UI/SearchInput';
 import {useFocusEffect} from '@react-navigation/native';
 import {useSearchContext} from '../../contexts/SearchContext';
-import {textIndexToArray} from '../../../utils/seedFunction';
 const HomeScreen = () => {
   const {setInputValue} = useSearchContext();
 
@@ -13,8 +12,6 @@ const HomeScreen = () => {
       setInputValue('');
     }, [setInputValue]),
   );
-
-  console.log(textIndexToArray('Netflix to release new documentary series'));
 
   return (
     <View style={styles.container}>
