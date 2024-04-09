@@ -3,8 +3,8 @@ import React, {useEffect, useState} from 'react';
 import Footer from '../../components/SearchScreen/Footer';
 import {useSearchContext} from '../../contexts/SearchContext';
 import {Result} from '../../constants/Interfaces';
-import newsSearch from '../../../utils/http/newsSearch';
 import NewsResultsList from '../../components/SearchScreen/News/NewsResultList';
+import search from '../../utils/http/search';
 
 const NewsScreen = () => {
   const {inputValue} = useSearchContext();
@@ -14,7 +14,7 @@ const NewsScreen = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await newsSearch(inputValue.split(/\s+/));
+      const data = await search('news', inputValue.split(/\s+/));
 
       setLoading(false);
       setResults(data);

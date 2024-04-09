@@ -3,8 +3,8 @@ import {StyleSheet, Text, View} from 'react-native';
 import Footer from '../../components/SearchScreen/Footer';
 import {Result} from '../../constants/Interfaces';
 import {useSearchContext} from '../../contexts/SearchContext';
-import imagesSearch from '../../../utils/http/imagesSearch';
 import ImageResultsList from '../../components/SearchScreen/Images/ImageResultList';
+import search from '../../utils/http/search';
 
 const ImagesScreen = () => {
   const {inputValue} = useSearchContext();
@@ -14,13 +14,12 @@ const ImagesScreen = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await imagesSearch(inputValue.split(/\s+/));
+      const data = await search('images', inputValue.split(/\s+/));
       setLoading(false);
       setResults(data);
     };
     fetchData();
   }, [inputValue]);
-
 
   return (
     <View style={styles.container}>
