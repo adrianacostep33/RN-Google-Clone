@@ -1,16 +1,21 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {ListRenderItemInfo, StyleSheet, Text, View} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Footer from '../../components/SearchScreen/Footer';
 import {useSearchContext} from '../../contexts/SearchContext';
 import {Result} from '../../constants/Interfaces';
-import NewsResultsList from '../../components/SearchScreen/News/NewsResultList';
 import search from '../../utils/http/search';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
+import NewsResultItem from '../../components/SearchScreen/News/NewsResultItem';
+import ResultsList from '../../components/SearchScreen/ResultsList';
 
 const NewsScreen = () => {
   const {inputValue} = useSearchContext();
   const [loading, setLoading] = useState(true);
   const [results, setResults] = useState<Result[]>([]);
+
+  function renderResultItem(itemData: ListRenderItemInfo<Result>) {
+    return <NewsResultItem {...itemData.item} />;
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +30,11 @@ const NewsScreen = () => {
   return (
     <View style={styles.container}>
       <Text>NewsScreen</Text>
-      {loading ? <LoadingSpinner /> : <NewsResultsList results={results} />}
+      {loading ? (
+        <LoadingSpinner />
+      ) : (
+        <ResultsList renderResultItem={renderResultItem} results={results} />
+      )}
       <Footer />
     </View>
   );
