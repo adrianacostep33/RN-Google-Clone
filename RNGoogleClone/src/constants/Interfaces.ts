@@ -6,4 +6,5 @@ export interface Result {
   image?: string;
   description?: string;
   tags?: string[];
+  imageContent?: string;
 }
