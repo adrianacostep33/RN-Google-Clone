@@ -3,6 +3,7 @@ import React from 'react';
 import Button from './Button';
 import {Colors} from '../../constants/Colors';
 import IconButton from '../SearchScreen/IconButton';
+import {BlurView} from '@react-native-community/blur';
 
 interface ModalProps {
   isDropdownOpen: boolean;
@@ -21,23 +22,30 @@ const ModalDropdown = ({
       transparent={true}
       animationType="slide"
       onRequestClose={() => setIsDropdownOpen(false)}>
-      <View style={styles.modalContainer}>
-        <View style={styles.logoContainer}>
-          <View style={styles.closeButtonContainer}>
-            <IconButton
-              source={require('../../assets/icons/close.png')}
-              size={24}
+      <BlurView
+        style={StyleSheet.absoluteFill}
+        blurType="dark"
+        blurAmount={0}
+        reducedTransparencyFallbackColor="white">
+        <View style={styles.modalContainer}>
+          <View style={styles.logoContainer}>
+            <View style={styles.closeButtonContainer}>
+              <IconButton
+                source={require('../../assets/icons/close.png')}
+                size={24}
+                onPress={() => setIsDropdownOpen(false)}
+              />
+            </View>
+            <Image
+              style={styles.image}
+              source={require('../../assets/images/google-logo.png')}
             />
           </View>
-          <Image
-            style={styles.image}
-            source={require('../../assets/images/google-logo.png')}
-          />
+          <View style={styles.modalContent}>
+            <Button title="Logout" onPress={onPress} />
+          </View>
         </View>
-        <View style={styles.modalContent}>
-          <Button title="Logout" onPress={onPress} />
-        </View>
-      </View>
+      </BlurView>
     </Modal>
   );
 };
@@ -60,7 +68,7 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: Colors.background500,
     padding: 20,
-    width: '100%',
+    // width: '100%',
     borderRadius: 10,
   },
   logoContainer: {

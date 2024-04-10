@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/no-unstable-nested-components */
 import {Image, StyleSheet, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
