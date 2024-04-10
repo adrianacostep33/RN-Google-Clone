@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import {Image, Modal, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {Colors} from '../../constants/Colors';
 import SearchInput from '../../components/UI/SearchInput';
@@ -9,6 +9,7 @@ import HeaderWrapper from '../../components/HomeScreen/HeaderWrapper';
 import Avatar from '../../components/UI/Avatar';
 import Button from '../../components/UI/Button';
 import {useAuth} from '../../contexts/useAuth';
+import ModalDropdown from '../../components/UI/ModalDropdown';
 
 const HomeScreen = ({navigation}: any) => {
   const {setInputValue} = useSearchContext();
@@ -16,8 +17,8 @@ const HomeScreen = ({navigation}: any) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleSignOut = () => {
-    // setIsDropdownOpen(false);
     signOut();
+    setIsDropdownOpen(false);
   };
 
   console.log({userImage});
@@ -33,17 +34,11 @@ const HomeScreen = ({navigation}: any) => {
                   source={{uri: userImage}}
                   onPress={() => setIsDropdownOpen(true)}
                 />
-                <Modal
-                  visible={isDropdownOpen}
-                  transparent={true}
-                  animationType="slide"
-                  onRequestClose={() => setIsDropdownOpen(false)}>
-                  <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                      <Button title="Logout" onPress={handleSignOut} />
-                    </View>
-                  </View>
-                </Modal>
+                <ModalDropdown
+                  isDropdownOpen={isDropdownOpen}
+                  setIsDropdownOpen={setIsDropdownOpen}
+                  onPress={handleSignOut}
+                />
               </View>
             ) : (
               <View style={styles.buttonContainer}>
@@ -107,18 +102,5 @@ const styles = StyleSheet.create({
   imageUser: {
     width: '100%',
     height: '100%',
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  modalContent: {
-    backgroundColor: 'white',
-    padding: 20,
-    width: '100%',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
   },
 });

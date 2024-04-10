@@ -1,0 +1,78 @@
+import {StyleSheet, View, Modal, Dimensions, Image} from 'react-native';
+import React from 'react';
+import Button from './Button';
+import {Colors} from '../../constants/Colors';
+import IconButton from '../SearchScreen/IconButton';
+
+interface ModalProps {
+  isDropdownOpen: boolean;
+  setIsDropdownOpen: (status: boolean) => void;
+  onPress: () => void;
+}
+
+const ModalDropdown = ({
+  isDropdownOpen,
+  setIsDropdownOpen,
+  onPress,
+}: ModalProps) => {
+  return (
+    <Modal
+      visible={isDropdownOpen}
+      transparent={true}
+      animationType="slide"
+      onRequestClose={() => setIsDropdownOpen(false)}>
+      <View style={styles.modalContainer}>
+        <View style={styles.logoContainer}>
+          <View style={styles.closeButtonContainer}>
+            <IconButton
+              source={require('../../assets/icons/close.png')}
+              size={24}
+            />
+          </View>
+          <Image
+            style={styles.image}
+            source={require('../../assets/images/google-logo.png')}
+          />
+        </View>
+        <View style={styles.modalContent}>
+          <Button title="Logout" onPress={onPress} />
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
+export default ModalDropdown;
+
+const deviceWidth = Dimensions.get('window').width;
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    alignItems: 'center',
+    position: 'absolute',
+    top: 0.3 * deviceWidth,
+    right: 20,
+    left: 20,
+    borderRadius: 10,
+    backgroundColor: Colors.background500,
+  },
+  modalContent: {
+    backgroundColor: Colors.background500,
+    padding: 20,
+    width: '100%',
+    borderRadius: 10,
+  },
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  closeButtonContainer: {
+    position: 'absolute',
+    right: 160,
+  },
+  image: {
+    width: 80,
+    height: 60,
+  },
+});
