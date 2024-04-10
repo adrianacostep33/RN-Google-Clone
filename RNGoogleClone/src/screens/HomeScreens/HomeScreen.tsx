@@ -8,49 +8,38 @@ import {useFocusEffect} from '@react-navigation/native';
 import {useSearchContext} from '../../contexts/SearchContext';
 import HeaderWrapper from '../../components/HomeScreen/HeaderWrapper';
 import Avatar from '../../components/UI/Avatar';
-import Button from '../../components/UI/Button';
 import {useAuth} from '../../contexts/useAuth';
 import ModalDropdown from '../../components/UI/ModalDropdown';
 
 const HomeScreen = ({navigation}: any) => {
   const {setInputValue} = useSearchContext();
-  const {userImage, signInWithGoogle, signOut} = useAuth();
+  const {userImage} = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const handleSignOut = () => {
-    signOut();
-    setIsDropdownOpen(false);
-  };
-
-  console.log({userImage});
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
       header: () => {
         return (
           <HeaderWrapper>
-            {userImage ? (
-              <View>
+            <View>
+              {userImage ? (
                 <Avatar
                   source={{uri: userImage}}
                   onPress={() => setIsDropdownOpen(true)}
                 />
-                <ModalDropdown
-                  isDropdownOpen={isDropdownOpen}
-                  setIsDropdownOpen={setIsDropdownOpen}
-                  onPress={handleSignOut}
-                />
-              </View>
-            ) : (
-              <View style={styles.buttonContainer}>
-                <Button title="Sign In" onPress={signInWithGoogle} />
-              </View>
-            )}
+              ) : (
+                <Avatar onPress={() => setIsDropdownOpen(true)} />
+              )}
+              <ModalDropdown
+                isDropdownOpen={isDropdownOpen}
+                setIsDropdownOpen={setIsDropdownOpen}
+              />
+            </View>
           </HeaderWrapper>
         );
       },
     });
-  }, [navigation, userImage, signInWithGoogle, isDropdownOpen]);
+  }, [navigation, userImage, isDropdownOpen]);
 
   useFocusEffect(
     useCallback(() => {

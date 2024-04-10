@@ -7,6 +7,8 @@ import {
   ViewStyle,
   Pressable,
 } from 'react-native';
+import {Colors} from '../../constants/Colors';
+import {useAuth} from '../../contexts/useAuth';
 
 interface AvatarProps {
   style?: ViewStyle;
@@ -15,12 +17,21 @@ interface AvatarProps {
 }
 
 const Avatar: React.FC<AvatarProps> = ({source, style, onPress}) => {
-  const defaultSource: ImageSourcePropType = require('../../assets/icons/avatar.png');
+  const {userImage} = useAuth();
+  const defaultSource: ImageSourcePropType = require('../../assets/icons/user.png');
   return (
-    <Pressable onPress={onPress}>
-      <View style={[styles.rootContainer, style]}>
+    <Pressable onPress={onPress} style={style}>
+      <View style={styles.rootContainer}>
         <View style={styles.container}>
-          <Image source={source || defaultSource} style={styles.image} />
+          {userImage ? (
+            <Image source={source} style={styles.loggedImage} />
+          ) : (
+            <Image
+              source={defaultSource}
+              style={styles.unloggedImage}
+              tintColor={Colors.primary}
+            />
+          )}
         </View>
       </View>
     </Pressable>
@@ -38,9 +49,15 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 17.5,
   },
-  image: {
+  loggedImage: {
     width: '100%',
     height: '100%',
+    color: Colors.primary,
+  },
+  unloggedImage: {
+    width: '90%',
+    height: '90%',
+    color: Colors.primary,
   },
 });
 

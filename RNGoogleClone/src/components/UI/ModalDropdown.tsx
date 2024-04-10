@@ -4,18 +4,26 @@ import Button from './Button';
 import {Colors} from '../../constants/Colors';
 import IconButton from '../SearchScreen/IconButton';
 import {BlurView} from '@react-native-community/blur';
+import {useAuth} from '../../contexts/useAuth';
 
 interface ModalProps {
   isDropdownOpen: boolean;
   setIsDropdownOpen: (status: boolean) => void;
-  onPress: () => void;
 }
 
-const ModalDropdown = ({
-  isDropdownOpen,
-  setIsDropdownOpen,
-  onPress,
-}: ModalProps) => {
+const ModalDropdown = ({isDropdownOpen, setIsDropdownOpen}: ModalProps) => {
+  const {isAuthenticated, signOut, signInWithGoogle} = useAuth();
+
+  const handleSignOut = () => {
+    signOut();
+    setIsDropdownOpen(false);
+  };
+
+  const handleSignIn = () => {
+    signInWithGoogle();
+    setIsDropdownOpen(false);
+  };
+
   return (
     <Modal
       visible={isDropdownOpen}
@@ -41,9 +49,15 @@ const ModalDropdown = ({
               source={require('../../assets/images/google-logo.png')}
             />
           </View>
-          <View style={styles.modalContent}>
-            <Button title="Logout" onPress={onPress} />
-          </View>
+          {isAuthenticated ? (
+            <View style={styles.modalContent}>
+              <Button title="Logout" onPress={handleSignOut} />
+            </View>
+          ) : (
+            <View style={styles.modalContent}>
+              <Button title="Sign In" onPress={handleSignIn} />
+            </View>
+          )}
         </View>
       </BlurView>
     </Modal>
