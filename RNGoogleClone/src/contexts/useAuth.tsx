@@ -1,21 +1,46 @@
-import React, {ReactNode, createContext, useContext, useState} from 'react';
+import React, {
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface AuthContextType {
+  userName: string | null;
   userImage: string | null;
+  isAuthenticated: boolean;
   signInWithGoogle: () => Promise<void>;
-  //   signOut: () => Promise<void>;
+  signOut: () => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+interface UserData {
+  userName: string | null;
+  userImage: string | null;
+  isAuthenticated: boolean;
+}
+
+const AuthContext = createContext<AuthContextType>({
+  userName: '',
+  userImage: '',
+  isAuthenticated: false,
+  signInWithGoogle: async () => {},
+  signOut: async () => {},
+});
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
 export const AuthProvider = ({children}: AuthProviderProps): JSX.Element => {
-  const [userImage, setUserImage] = useState<string | null>(null);
+  const [user, setUser] = useState<UserData>({
+    userName: '',
+    userImage: '',
+    isAuthenticated: false,
+  });
 
   GoogleSignin.configure({
     webClientId:
@@ -28,19 +53,55 @@ export const AuthProvider = ({children}: AuthProviderProps): JSX.Element => {
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
     const userSignIn = await auth().signInWithCredential(googleCredential);
 
-    setUserImage(userSignIn.additionalUserInfo?.profile?.picture || null);
+    if (!userSignIn) return;
+
+    const userData = {
+      userName: userSignIn.user.displayName,
+      userImage: userSignIn.user.photoURL,
+      isAuthenticated: true,
+    };
+    setUser(userData);
+
+    await AsyncStorage.setItem('user', JSON.stringify(userData));
   };
 
-  //   const signOut = async (): Promise<void> => {
-  //     await auth().signOut();
-  //     setUserImage(null);
-  //   };
+  useEffect(() => {
+    const loadUserFromStorage = async () => {
+      try {
+        const userJson = await AsyncStorage.getItem('user');
 
-  return (
-    <AuthContext.Provider value={{userImage, signInWithGoogle}}>
-      {children}
-    </AuthContext.Provider>
-  );
+        if (userJson) {
+          const storedUser = JSON.parse(userJson);
+          setUser(storedUser);
+        }
+      } catch (error) {
+        console.log('Error');
+        console.error(error);
+      }
+    };
+
+    loadUserFromStorage();
+  }, []);
+
+  const signOut = async () => {
+    try {
+      await GoogleSignin.signOut();
+      await auth().signOut();
+      console.log('User signed out!');
+    } catch (error) {
+      console.error('Error signing out:', error);
+    }
+  };
+
+  const value = {
+    userName: user.userName,
+    userImage: user.userImage,
+    isAuthenticated: user.isAuthenticated,
+    signInWithGoogle: signInWithGoogle,
+    signOut: signOut,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = (): AuthContextType => {
