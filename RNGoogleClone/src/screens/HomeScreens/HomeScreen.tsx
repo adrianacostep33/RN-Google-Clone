@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
-import {Image, StyleSheet, View} from 'react-native';
-import React, {useCallback} from 'react';
+import {Image, Modal, StyleSheet, View} from 'react-native';
+import React, {useCallback, useState} from 'react';
 import {Colors} from '../../constants/Colors';
 import SearchInput from '../../components/UI/SearchInput';
 import {useFocusEffect} from '@react-navigation/native';
@@ -12,7 +12,15 @@ import {useAuth} from '../../contexts/useAuth';
 
 const HomeScreen = ({navigation}: any) => {
   const {setInputValue} = useSearchContext();
-  const {userImage, signInWithGoogle} = useAuth();
+  const {userImage, signInWithGoogle, signOut} = useAuth();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleSignOut = () => {
+    // setIsDropdownOpen(false);
+    signOut();
+  };
+
+  console.log({userImage});
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -20,7 +28,23 @@ const HomeScreen = ({navigation}: any) => {
         return (
           <HeaderWrapper>
             {userImage ? (
-              <Avatar source={{uri: userImage}} />
+              <View>
+                <Avatar
+                  source={{uri: userImage}}
+                  onPress={() => setIsDropdownOpen(true)}
+                />
+                <Modal
+                  visible={isDropdownOpen}
+                  transparent={true}
+                  animationType="slide"
+                  onRequestClose={() => setIsDropdownOpen(false)}>
+                  <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                      <Button title="Logout" onPress={handleSignOut} />
+                    </View>
+                  </View>
+                </Modal>
+              </View>
             ) : (
               <View style={styles.buttonContainer}>
                 <Button title="Sign In" onPress={signInWithGoogle} />
@@ -30,7 +54,7 @@ const HomeScreen = ({navigation}: any) => {
         );
       },
     });
-  }, [navigation, userImage, signInWithGoogle]);
+  }, [navigation, userImage, signInWithGoogle, isDropdownOpen]);
 
   useFocusEffect(
     useCallback(() => {
@@ -83,5 +107,18 @@ const styles = StyleSheet.create({
   imageUser: {
     width: '100%',
     height: '100%',
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 20,
+    width: '100%',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
 });

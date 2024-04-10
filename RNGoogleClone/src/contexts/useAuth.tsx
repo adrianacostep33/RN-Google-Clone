@@ -87,6 +87,12 @@ export const AuthProvider = ({children}: AuthProviderProps): JSX.Element => {
     try {
       await GoogleSignin.signOut();
       await auth().signOut();
+      await AsyncStorage.removeItem('user');
+      setUser({
+        userName: '',
+        userImage: '',
+        isAuthenticated: false,
+      });
       console.log('User signed out!');
     } catch (error) {
       console.error('Error signing out:', error);
